@@ -13,26 +13,37 @@ public class OrderRepository implements Repository<Order> {
 
     @Override
     public void save(Order entity) {
-
+        DB.put(entity.getId(), entity);
     }
 
     @Override
     public Order findById(int id) {
+        if (DB.containsKey(id)) {
+            return DB.get(id);
+        }
         return null;
     }
 
     @Override
     public List<Order> findAll() {
-        return List.of();
+        return new ArrayList<>(DB.values());
     }
 
     @Override
     public boolean update(Order entity) {
+        if (DB.containsKey(entity.getId())) {
+            DB.put(entity.getId(), entity);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean delete(int id) {
+        if (DB.containsKey(id)) {
+            DB.remove(id);
+            return true;
+        }
         return false;
     }
 }
