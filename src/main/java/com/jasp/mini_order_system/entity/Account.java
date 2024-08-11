@@ -19,8 +19,13 @@ public class Account extends Common {
 
     // 출금 메서드
     public void withdraw(int amount){
-        balance -= amount;
-        System.out.println("출금 후 잔액 : "+balance);
+        if(balance >= amount){
+            balance -= amount;
+            System.out.println("출금 후 잔액 : "+balance);
+        }
+        else {
+            System.out.println("잔액이 부족합니다.");
+        }
     }
     // 입금 메서드
     public void deposit(int amount){

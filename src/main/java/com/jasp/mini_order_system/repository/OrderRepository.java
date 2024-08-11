@@ -18,7 +18,7 @@ public class OrderRepository implements Repository<Order> {
 
     @Override
     public Order findById(int id) {
-        if (DB.containsKey(id)) {
+        if (!notExists(DB, id)) {
             return DB.get(id);
         }
         return null;
@@ -31,7 +31,7 @@ public class OrderRepository implements Repository<Order> {
 
     @Override
     public boolean update(Order entity) {
-        if (DB.containsKey(entity.getId())) {
+        if (!notExists(DB, entity.getId())) {
             DB.put(entity.getId(), entity);
             return true;
         }
@@ -40,7 +40,7 @@ public class OrderRepository implements Repository<Order> {
 
     @Override
     public boolean delete(int id) {
-        if (DB.containsKey(id)) {
+        if (!notExists(DB, id)) {
             DB.remove(id);
             return true;
         }

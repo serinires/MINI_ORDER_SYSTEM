@@ -17,7 +17,7 @@ public class AccountRepository implements Repository<Account> {
 
     @Override
     public Account findById(int id) {
-        if (DB.containsKey(id)) {
+        if (!notExists(DB, id)) {
             return DB.get(id);
         }
         return null;
@@ -30,7 +30,7 @@ public class AccountRepository implements Repository<Account> {
 
     @Override
     public boolean update(Account entity) {
-        if (DB.containsKey(entity.getId())) {
+        if (!notExists(DB, entity.getId())) {
             DB.put(entity.getId(), entity);
             return true;
         }
@@ -39,7 +39,7 @@ public class AccountRepository implements Repository<Account> {
 
     @Override
     public boolean delete(int id) {
-        if (DB.containsKey(id)) {
+        if (!notExists(DB, id)) {
             DB.remove(id);
             return true;
         }
